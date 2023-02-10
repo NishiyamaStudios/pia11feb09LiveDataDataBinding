@@ -22,7 +22,16 @@ class MainActivity : AppCompatActivity() {
             findViewById<TextView>(R.id.mainTextView).text = newName
         }
 
+        val numberObserver  = Observer<Int> { newNumber ->
+            //Vad skall hända när det kommer ett nyt värde
+
+            findViewById<TextView>(R.id.numberTV).text = newNumber.toString()
+        }
+
         model.currentName.observe(this, nameObserver) //Vad skall vi observera, samt ägare och vem som observerar
+        model.theNumber.observe(this, numberObserver)
+
+        model.loadstuff()
 
         findViewById<Button>(R.id.mainButton).setOnClickListener {
             model.currentName.value = "Bartil"
