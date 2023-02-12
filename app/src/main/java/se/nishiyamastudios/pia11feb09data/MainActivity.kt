@@ -5,7 +5,9 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
 import androidx.activity.viewModels
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import se.nishiyamastudios.pia11feb09data.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
@@ -13,7 +15,12 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+
+        //setContentView(R.layout.activity_main)
+
+        val binding : ActivityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+
+        binding.fancytext = "Mycket fancytext"
 
         //newName är ett egen namn i stället för It.
         val nameObserver  = Observer<String> { newName ->
@@ -26,6 +33,8 @@ class MainActivity : AppCompatActivity() {
             //Vad skall hända när det kommer ett nyt värde
 
             findViewById<TextView>(R.id.numberTV).text = newNumber.toString()
+
+            //binding.fancytext = newNumber.toString()
         }
 
         model.currentName.observe(this, nameObserver) //Vad skall vi observera, samt ägare och vem som observerar
